@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MAD Creative — Photography | Design | Film | Music</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg: #000000;
+  --bg-elevated: #0a0a0a;
+  --bg-card: #111111;
+  --text: #ffffff;
+  --text-muted: #777777;
+  --accent: #ffffff;
+  --accent-dim: rgba(255,255,255,0.15);
+  --border: rgba(255,255,255,0.1);
+  --radius: 2px;
+  --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Space Grotesk', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ───── SCROLLBAR ───── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: #fff; border-radius: 0; }
+
+/* ───── NAV ───── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 1rem 3rem;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(0,0,0,0.9);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid transparent;
+  transition: var(--transition);
+}
+nav.scrolled { border-bottom-color: var(--border); }
+
+.nav-logo img {
+  height: 45px;
+  width: auto;
+  filter: brightness(1.1);
+}
+
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  color: var(--text-muted); text-decoration: none;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1rem;
+  letter-spacing: 2px; text-transform: uppercase;
+  transition: color 0.3s;
+  position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -4px; left: 0;
+  width: 0; height: 2px; background: #fff;
+  transition: width 0.3s;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-links a:hover::after { width: 100%; }
+
+.nav-cta {
+  padding: 0.6rem 1.8rem;
+  background: #fff; color: #000;
+  border: none; border-radius: 0;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 2px; text-transform: uppercase;
+  cursor: pointer; text-decoration: none;
+  transition: var(--transition);
+}
+.nav-cta:hover {
+  background: transparent; color: #fff;
+  outline: 1px solid #fff;
+}
+
+/* Mobile menu */
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; }
+.hamburger span { width: 24px; height: 2px; background: var(--text); transition: 0.3s; }
+
+/* ───── HERO ───── */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: var(--bg);
+}
+/* Animated grain overlay */
+.hero-grain {
+  position: absolute; inset: -50%;
+  width: 200%; height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.5;
+  pointer-events: none;
+}
+.hero-lines {
+  position: absolute; inset: 0;
+  background-image: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 120px,
+    rgba(255,255,255,0.03) 120px,
+    rgba(255,255,255,0.03) 121px
+  );
+  pointer-events: none;
+}
+
+.hero-content {
+  text-align: center;
+  position: relative; z-index: 2;
+  max-width: 1000px; padding: 0 2rem;
+}
+.hero-logo {
+  margin-bottom: 2.5rem;
+}
+.hero-logo img {
+  width: 280px;
+  height: auto;
+  filter: brightness(1.1);
+}
+.hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(3.5rem, 10vw, 8rem);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+}
+.hero h1 .outline-text {
+  -webkit-text-stroke: 1px rgba(255,255,255,0.5);
+  color: transparent;
+}
+.hero-tagline {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 3rem;
+}
+.hero-tagline .pipe { margin: 0 0.5rem; color: rgba(255,255,255,0.2); }
+.hero p {
+  font-size: 1rem;
+  color: var(--text-muted);
+  max-width: 500px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.8;
+  font-weight: 300;
+}
+.hero-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.btn-primary {
+  padding: 1rem 3rem;
+  background: #fff; color: #000;
+  border: none; border-radius: 0;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.05rem;
+  letter-spacing: 3px; text-transform: uppercase;
+  cursor: pointer; text-decoration: none;
+  transition: var(--transition);
+}
+.btn-primary:hover { background: transparent; color: #fff; outline: 1px solid #fff; transform: translateY(-2px); }
+.btn-outline {
+  padding: 1rem 3rem;
+  background: transparent;
+  color: #fff; border: 1px solid rgba(255,255,255,0.3); border-radius: 0;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.05rem;
+  letter-spacing: 3px; text-transform: uppercase;
+  cursor: pointer; text-decoration: none;
+  transition: var(--transition);
+}
+.btn-outline:hover { border-color: #fff; background: rgba(255,255,255,0.05); }
+
+.scroll-indicator {
+  position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  color: var(--text-muted);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase;
+  animation: bobbing 2s ease-in-out infinite;
+}
+.scroll-indicator .line { width: 1px; height: 50px; background: linear-gradient(to bottom, #fff, transparent); }
+
+@keyframes bobbing { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(8px); } }
+
+/* ───── SECTION COMMON ───── */
+section { padding: 7rem 3rem; }
+.section-header { text-align: center; margin-bottom: 4rem; }
+.section-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.7rem; font-weight: 500;
+  letter-spacing: 4px; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 1.5rem;
+  display: block;
+}
+.section-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 400;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+.section-title .pipe { color: rgba(255,255,255,0.2); margin: 0 0.3rem; }
+.section-subtitle {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  font-weight: 300;
+  max-width: 550px;
+  margin: 0 auto;
+}
+.divider {
+  width: 80px; height: 1px;
+  background: rgba(255,255,255,0.2);
+  margin: 1.5rem auto 0;
+}
+
+/* ───── SERVICES ───── */
+#services { background: var(--bg-elevated); }
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1px;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: var(--border);
+}
+.service-card {
+  background: var(--bg);
+  padding: 3rem 2.5rem;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.service-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0;
+  width: 3px; height: 0;
+  background: #fff;
+  transition: height 0.5s;
+}
+.service-card:hover { background: var(--bg-card); }
+.service-card:hover::before { height: 100%; }
+
+.service-icon {
+  width: 50px; height: 50px;
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+}
+.service-card h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 400;
+  margin-bottom: 0.75rem;
+}
+.service-card p {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* ───── PORTFOLIO ───── */
+.portfolio-filters {
+  display: flex; justify-content: center;
+  gap: 0; margin-bottom: 3rem;
+  flex-wrap: wrap;
+  border: 1px solid var(--border);
+  display: inline-flex;
+  margin-left: auto; margin-right: auto;
+  display: flex;
+}
+.filter-btn {
+  padding: 0.7rem 2rem;
+  background: transparent;
+  border: none;
+  border-right: 1px solid var(--border);
+  color: var(--text-muted);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.95rem;
+  letter-spacing: 2px; text-transform: uppercase;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.filter-btn:last-child { border-right: none; }
+.filter-btn.active, .filter-btn:hover {
+  background: #fff;
+  color: #000;
+}
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+.portfolio-item {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1/1;
+  cursor: pointer;
+}
+.portfolio-item img,
+.portfolio-item video {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: grayscale(30%);
+  transition: all 0.6s ease;
+}
+.portfolio-item video {
+  display: block;
+  background: #000;
+}
+.portfolio-item.is-hidden {
+  display: none;
+}
+.portfolio-media-type {
+  position: absolute;
+  top: 0.8rem;
+  right: 0.8rem;
+  padding: 0.3rem 0.55rem;
+  border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(0,0,0,0.55);
+  color: #fff;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  z-index: 2;
+}
+.portfolio-overlay {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0.7);
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center;
+  padding: 2rem;
+  opacity: 0;
+  transition: opacity 0.4s;
+}
+.portfolio-item:hover img,
+.portfolio-item:hover video { transform: scale(1.1); filter: grayscale(0%); }
+.portfolio-item:hover .portfolio-overlay { opacity: 1; }
+.portfolio-overlay h4 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.6rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+}
+.portfolio-overlay span {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 300;
+}
+.portfolio-empty {
+  grid-column: 1 / -1;
+  padding: 4rem 2rem;
+  border: 1px solid var(--border);
+  text-align: center;
+  color: var(--text-muted);
+  font-weight: 300;
+}
+
+/* ───── ABOUT ───── */
+#about { background: var(--bg-elevated); }
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  align-items: center;
+}
+.about-image {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+}
+.about-image img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: grayscale(20%);
+}
+.about-image::after {
+  content: '';
+  position: absolute; inset: 0;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+.about-text h2 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 400;
+  margin-bottom: 1.5rem;
+  line-height: 1.1;
+}
+.about-text h2 em {
+  -webkit-text-stroke: 1px rgba(255,255,255,0.5);
+  color: transparent;
+  font-style: normal;
+}
+.about-text p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  margin-bottom: 1.5rem;
+  font-weight: 300;
+}
+.stats-row {
+  display: flex; gap: 3rem; margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+}
+.stat h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3rem; color: #fff;
+  letter-spacing: 2px;
+}
+.stat p {
+  font-size: 0.7rem; color: var(--text-muted);
+  letter-spacing: 2px; text-transform: uppercase;
+  margin-top: 0.25rem;
+  font-weight: 300;
+}
+
+/* ───── REEL ───── */
+#reel { position: relative; }
+.reel-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  aspect-ratio: 16/9;
+  background: var(--bg-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.play-button {
+  width: 90px; height: 90px;
+  background: transparent;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  z-index: 2;
+}
+.play-button:hover { background: #fff; transform: scale(1.1); }
+.play-button:hover svg { fill: #000; }
+.play-button svg { fill: white; width: 24px; height: 24px; margin-left: 4px; }
+
+.reel-bg-text {
+  position: absolute;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 10rem;
+  color: rgba(255,255,255,0.03);
+  text-transform: uppercase;
+  letter-spacing: 20px;
+  white-space: nowrap;
+}
+
+/* ───── MUSIC ───── */
+#music { background: var(--bg-elevated); }
+.music-container {
+  max-width: 800px;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+/* ───── TESTIMONIALS ───── */
+.testimonials-track {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+}
+.testimonial {
+  text-align: center;
+  padding: 2rem;
+}
+.testimonial .quote {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+  color: var(--text);
+  position: relative;
+}
+.testimonial .quote::before {
+  content: '\201C';
+  font-size: 6rem;
+  color: rgba(255,255,255,0.08);
+  position: absolute;
+  top: -2.5rem; left: 50%; transform: translateX(-50%);
+  font-family: 'Bebas Neue', sans-serif;
+}
+.testimonial .author {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+.testimonial .author strong { color: var(--text); }
+
+/* ───── CONTACT ───── */
+#contact { background: var(--bg-elevated); }
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 4rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.contact-info h3 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 2.5rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-weight: 400;
+  margin-bottom: 1rem;
+}
+.contact-info p {
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 2rem;
+  font-weight: 300;
+}
+.contact-detail {
+  display: flex; align-items: center; gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+.contact-detail .icon {
+  width: 44px; height: 44px;
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  color: #fff; font-size: 1.1rem;
+  flex-shrink: 0;
+}
+.contact-detail span { color: var(--text-muted); font-size: 0.85rem; font-weight: 300; }
+.contact-detail a { color: var(--text); text-decoration: none; font-weight: 400; }
+.contact-detail a:hover { color: var(--text-muted); }
+
+.social-links { display: flex; gap: 0.5rem; margin-top: 2rem; }
+.social-link {
+  width: 44px; height: 44px;
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: var(--transition);
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.85rem; letter-spacing: 1px;
+}
+.social-link:hover { border-color: #fff; color: #fff; background: rgba(255,255,255,0.05); }
+
+.contact-form { display: flex; flex-direction: column; gap: 1.25rem; }
+.form-row { display: flex; gap: 1.25rem; }
+.form-row .form-group { flex: 1; }
+.form-group label {
+  display: block; margin-bottom: 0.5rem;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 2px; text-transform: uppercase;
+  color: var(--text-muted);
+}
+.form-group input, .form-group textarea, .form-group select {
+  width: 100%;
+  padding: 0.9rem 1rem;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 0;
+  color: var(--text);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 300;
+  transition: border-color 0.3s;
+  outline: none;
+}
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+  border-color: #fff;
+}
+.form-group textarea { resize: vertical; min-height: 120px; }
+.form-group select option { background: var(--bg-card); }
+
+.submit-btn {
+  padding: 1rem 3rem;
+  background: #fff; color: #000;
+  border: none; border-radius: 0;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.05rem;
+  letter-spacing: 3px; text-transform: uppercase;
+  cursor: pointer;
+  transition: var(--transition);
+  align-self: flex-start;
+}
+.submit-btn:hover { background: transparent; color: #fff; outline: 1px solid #fff; }
+
+/* ───── FOOTER ───── */
+footer {
+  padding: 3rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+.footer-logo img {
+  height: 30px;
+  width: auto;
+  filter: brightness(1.1);
+}
+footer p { color: var(--text-muted); font-size: 0.8rem; font-weight: 300; letter-spacing: 1px; }
+
+/* ───── ANIMATIONS ───── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger children */
+.services-grid .reveal:nth-child(2) { transition-delay: 0.1s; }
+.services-grid .reveal:nth-child(3) { transition-delay: 0.2s; }
+.services-grid .reveal:nth-child(4) { transition-delay: 0.3s; }
+
+/* ───── RESPONSIVE ───── */
+@media (max-width: 900px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .nav-cta { display: none; }
+  .hamburger { display: flex; }
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute; top: 100%; left: 0; right: 0;
+    background: rgba(0,0,0,0.97);
+    backdrop-filter: blur(20px);
+    padding: 2rem;
+    gap: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  section { padding: 4rem 1.5rem; }
+  .hero-logo img { width: 200px; }
+  .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .form-row { flex-direction: column; }
+  .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+  .stats-row { gap: 2rem; }
+  .reel-bg-text { font-size: 5rem; }
+  footer { flex-direction: column; text-align: center; }
+  .portfolio-filters { flex-wrap: wrap; }
+  .filter-btn { border-bottom: 1px solid var(--border); }
+}
+
+@media (max-width: 550px) {
+  .portfolio-grid { grid-template-columns: 1fr; }
+}
+
+/* ───── LIGHTBOX ───── */
+.lightbox {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(0,0,0,0.97);
+  display: none; align-items: center; justify-content: center;
+  cursor: zoom-out;
+}
+.lightbox.open { display: flex; }
+.lightbox-frame {
+  max-width: 90vw;
+  max-height: 90vh;
+}
+.lightbox-frame img,
+.lightbox-frame video {
+  max-width: 90vw; max-height: 90vh;
+  object-fit: contain;
+  display: block;
+}
+.lightbox-frame video {
+  background: #000;
+}
+.lightbox-close {
+  position: absolute; top: 2rem; right: 2rem;
+  background: none; border: none;
+  color: white; font-size: 2rem;
+  cursor: pointer;
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 2px;
+}
+
+/* ───── MARQUEE ───── */
+.marquee-strip {
+  overflow: hidden;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+.marquee-inner {
+  display: inline-flex;
+  animation: marquee 30s linear infinite;
+}
+.marquee-inner span {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.15);
+  padding: 0 2rem;
+}
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <img src="https://images.squarespace-cdn.com/content/v1/63f40364f3010727a4a56f75/b3ff049c-188e-48f7-8461-72067a74994b/Logo.png?format=500w" alt="MAD Creative">
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#reel">Film</a></li>
+    <li><a href="#music">Music</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Contact Us</a>
+  <button class="hamburger" id="hamburger" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-lines"></div>
+  <div class="hero-content">
+    <div class="hero-logo">
+      <img src="https://images.squarespace-cdn.com/content/v1/63f40364f3010727a4a56f75/b3ff049c-188e-48f7-8461-72067a74994b/Logo.png?format=1500w" alt="MAD Creative">
+    </div>
+    <h1>We Make <span class="outline-text">Creative</span><br>That Moves People</h1>
+    <div class="hero-tagline">
+      Photography<span class="pipe">|</span>Graphic Design<span class="pipe">|</span>Film<span class="pipe">|</span>Music
+    </div>
+    <p>A multidisciplinary studio crafting bold visuals, cinematic stories, and sonic experiences for brands and artists who refuse to blend in.</p>
+    <div class="hero-buttons">
+      <a href="#work" class="btn-primary">View Our Work</a>
+      <a href="#contact" class="btn-outline">Start a Project</a>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <span>Photography</span><span>&bull;</span>
+    <span>Graphic Design</span><span>&bull;</span>
+    <span>Film & Videography</span><span>&bull;</span>
+    <span>Music Production</span><span>&bull;</span>
+    <span>Brand Identity</span><span>&bull;</span>
+    <span>Digital Art</span><span>&bull;</span>
+    <span>3D Rendering</span><span>&bull;</span>
+    <span>Sound Design</span><span>&bull;</span>
+    <span>Photography</span><span>&bull;</span>
+    <span>Graphic Design</span><span>&bull;</span>
+    <span>Film & Videography</span><span>&bull;</span>
+    <span>Music Production</span><span>&bull;</span>
+    <span>Brand Identity</span><span>&bull;</span>
+    <span>Digital Art</span><span>&bull;</span>
+    <span>3D Rendering</span><span>&bull;</span>
+    <span>Sound Design</span><span>&bull;</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-header reveal">
+    <span class="section-label">What We Do</span>
+    <h2 class="section-title">Creative<span class="pipe"> | </span>Services</h2>
+    <p class="section-subtitle">From concept to delivery, we bring ideas to life across every visual and sonic medium.</p>
+    <div class="divider"></div>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      </div>
+      <h3>Photography</h3>
+      <p>Editorial, portrait, product, and event photography with a signature cinematic style. We capture moments that tell your story.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <h3>Graphic Design</h3>
+      <p>Brand identity, digital design, illustration, and 3D-rendered artwork. Bold visuals that make your brand unforgettable.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+      </div>
+      <h3>Film | Videography</h3>
+      <p>Music videos, brand films, event coverage, and documentary storytelling. Cinematic production from pre to post.</p>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+      </div>
+      <h3>Music | Production</h3>
+      <p>Original scoring, sound design, mixing, and production. We create the sonic landscape that gives your project its soul.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section id="work">
+  <div class="section-header reveal">
+    <span class="section-label">Selected Work</span>
+    <h2 class="section-title">Photography<span class="pipe"> | </span>Design<span class="pipe"> | </span>Film</h2>
+    <p class="section-subtitle">A curated selection of our best work across photography, design, digital art, and video.</p>
+    <div class="divider"></div>
+  </div>
+  <div class="portfolio-filters reveal" id="portfolioFilters" aria-label="Filter portfolio work"></div>
+  <div class="portfolio-grid" id="portfolioGrid"></div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-image reveal">
+      <img src="https://images.squarespace-cdn.com/content/v1/63f40364f3010727a4a56f75/43c5907b-3c85-4dce-8929-d99a8dbea50a/DB05315A-F3A7-4E1A-BD75-DA0594C135A0.jpg" alt="MAD Creative Studio">
+    </div>
+    <div class="about-text reveal">
+      <span class="section-label">About Us</span>
+      <h2>Built By Creatives <em>For Creatives</em></h2>
+      <p>MAD Creative is a multidisciplinary studio where photography, design, film, and music converge. We don't just make content — we craft experiences that resonate.</p>
+      <p>Whether it's a cinematic brand film, a bold visual identity, or an original score, every project is approached with the same philosophy: push boundaries, tell truth, make it unforgettable.</p>
+      <div class="stats-row">
+        <div class="stat">
+          <h3>10+</h3>
+          <p>Years Creating</p>
+        </div>
+        <div class="stat">
+          <h3>200+</h3>
+          <p>Projects Delivered</p>
+        </div>
+        <div class="stat">
+          <h3>4</h3>
+          <p>Creative Disciplines</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FILM REEL -->
+<section id="reel">
+  <div class="section-header reveal">
+    <span class="section-label">Watch</span>
+    <h2 class="section-title">Film<span class="pipe"> | </span>Videography</h2>
+    <p class="section-subtitle">Cinematic storytelling across music videos, brand films, and documentary projects.</p>
+    <div class="divider"></div>
+  </div>
+  <div class="reel-container reveal">
+    <div class="reel-bg-text">SHOWREEL</div>
+    <button class="play-button" onclick="window.open('https://vimeo.com/showcase/11933626', '_blank')" aria-label="Play showreel">
+      <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
+    </button>
+  </div>
+</section>
+
+<!-- MUSIC -->
+<section id="music">
+  <div class="section-header reveal">
+    <span class="section-label">Listen</span>
+    <h2 class="section-title">Music<span class="pipe"> | </span>Production</h2>
+    <p class="section-subtitle">Original compositions, beats, and production work. Hit play.</p>
+    <div class="divider"></div>
+  </div>
+  <div class="music-container reveal">
+    <iframe style="border-radius:0" src="https://open.spotify.com/embed/playlist/4AR1EqlZD7yLqy8dHO2BqN?utm_source=generator&theme=0" width="100%" height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="section-header reveal">
+    <span class="section-label">Kind Words</span>
+    <h2 class="section-title">What People Say</h2>
+    <div class="divider"></div>
+  </div>
+  <div class="testimonials-track reveal">
+    <div class="testimonial">
+      <div class="quote">MAD Creative doesn't just deliver work — they deliver vision. Every shoot, every edit, every track feels like it was made by someone who actually gets it.</div>
+      <div class="author"><strong>— A Satisfied Client</strong> &nbsp;&bull;&nbsp; Brand Partner</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-header reveal">
+    <span class="section-label">Let's Work Together</span>
+    <h2 class="section-title">Start A Project</h2>
+    <p class="section-subtitle">Tell us about your vision. We'll make it happen.</p>
+    <div class="divider"></div>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-info reveal">
+      <h3>Get In Touch</h3>
+      <p>Ready to bring your next project to life? Whether it's a full campaign or a single shoot, we'd love to hear from you.</p>
+      <div class="contact-detail">
+        <div class="icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+        </div>
+        <div><span>Email</span><br><a href="mailto:hello@itsmadcreative.com">hello@itsmadcreative.com</a></div>
+      </div>
+      <div class="contact-detail">
+        <div class="icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div><span>Location</span><br><a href="#">Available Worldwide</a></div>
+      </div>
+      <div class="social-links">
+        <a href="https://vimeo.com/showcase/11933626" class="social-link" target="_blank" title="Vimeo">Vi</a>
+        <a href="https://open.spotify.com/playlist/4AR1EqlZD7yLqy8dHO2BqN" class="social-link" target="_blank" title="Spotify">Sp</a>
+        <a href="#" class="social-link" title="Instagram">Ig</a>
+      </div>
+    </div>
+    <form class="contact-form reveal" onsubmit="event.preventDefault(); this.querySelector('.submit-btn').textContent='MESSAGE SENT'; this.querySelector('.submit-btn').style.background='transparent'; this.querySelector('.submit-btn').style.color='#fff'; this.querySelector('.submit-btn').style.outline='1px solid #fff';">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Name</label>
+          <input type="text" placeholder="Your name">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" placeholder="your@email.com">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Service</label>
+        <select>
+          <option value="">What do you need?</option>
+          <option>Photography</option>
+          <option>Graphic Design</option>
+          <option>Film | Videography</option>
+          <option>Music | Production</option>
+          <option>Full Creative Package</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Tell Us About Your Project</label>
+        <textarea placeholder="Describe your vision, timeline, and any details that would help us understand your project..."></textarea>
+      </div>
+      <button type="submit" class="submit-btn">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo">
+    <img src="https://images.squarespace-cdn.com/content/v1/63f40364f3010727a4a56f75/b3ff049c-188e-48f7-8461-72067a74994b/Logo.png?format=500w" alt="MAD Creative">
+  </a>
+  <p>2025 – Infinity &nbsp;|&nbsp; MAD Creative. All rights reserved.</p>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" type="button" aria-label="Close">&times;</button>
+  <div class="lightbox-frame" id="lightboxFrame"></div>
+</div>
+
+<script src="data/media-manifest.js"></script>
+<script>
+// NAV SCROLL
+const nav = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// MOBILE MENU
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.getElementById('navLinks');
+hamburger.addEventListener('click', () => {
+  navLinks.classList.toggle('open');
+});
+navLinks.querySelectorAll('a').forEach(link => {
+  link.addEventListener('click', () => navLinks.classList.remove('open'));
+});
+
+// PORTFOLIO MEDIA
+const categoryMeta = {
+  photo: { label: 'Photography' },
+  design: { label: 'Design' },
+  digital: { label: 'Digital Art' },
+  film: { label: 'Film' }
+};
+const categoryOrder = ['photo', 'design', 'digital', 'film'];
+const fallbackMedia = [
+  {
+    src: 'https://images.squarespace-cdn.com/content/v1/63f40364f3010727a4a56f75/c9b786b9-a61c-4be2-8d9b-d83ff009a576/11060657654_793866ceea_o.jpg',
+    title: 'Portrait Series',
+    category: 'photo',
+    tags: ['Photography'],
+    alt: 'Portrait Photography',
+    type: 'image'
+  },
+  {
+    src: 'https://images.squarespace-cdn.com/content/v1/63f40364f3010727a4a56f75/1f9f5fa9-ac4e-4003-874f-be4164dda630/hubertskull%28webpostv2%29.jpeg',
+    title: 'Skull Illustration',
+    category: 'design',
+    tags: ['Graphic Design'],
+    alt: 'Skull Design',
+    type: 'image'
+  },
+  {
+    src: 'https://images.squarespace-cdn.com/content/v1/63f40364f3010727a4a56f75/fdf493d5-0fd4-4a3c-a112-c07ea3d18557/11060344005_23eca5c886_o.jpg',
+    title: 'Cinematic Portraits',
+    category: 'photo',
+    tags: ['Photography'],
+    alt: 'Cinematic Portrait',
+    type: 'image'
+  },
+  {
+    src: 'https://images.squarespace-cdn.com/content/v1/63f40364f3010727a4a56f75/f4488a3c-38b7-4653-b6aa-7cb0303ec198/cyberbabegunposev5%28post%29.png',
+    title: 'Cyber Series',
+    category: 'digital',
+    tags: ['Digital Art'],
+    alt: 'Cyberpunk Digital Art',
+    type: 'image'
+  },
+  {
+    src: 'https://images.squarespace-cdn.com/content/v1/63f40364f3010727a4a56f75/9890bb33-23fc-43ad-b9cd-4601c4477f98/11060569256_914118fb2f_o.jpg',
+    title: 'Urban Stories',
+    category: 'photo',
+    tags: ['Photography'],
+    alt: 'Street Photography',
+    type: 'image'
+  },
+  {
+    src: 'https://images.squarespace-cdn.com/content/v1/63f40364f3010727a4a56f75/319afc92-992a-456b-9593-db77e79d52ec/pinupborg2.jpg',
+    title: 'Retro Futurism',
+    category: 'design',
+    tags: ['Illustration'],
+    alt: 'Pin-Up Illustration',
+    type: 'image'
+  },
+  {
+    src: 'https://images.squarespace-cdn.com/content/v1/63f40364f3010727a4a56f75/a960d819-bb2e-4df8-a8ff-3176ae6361b2/10024.png',
+    title: '3D Renders',
+    category: 'digital',
+    tags: ['Digital Art'],
+    alt: '3D Artwork',
+    type: 'image'
+  },
+  {
+    src: 'https://images.squarespace-cdn.com/content/v1/63f40364f3010727a4a56f75/70cb0b82-0e30-445e-9fc3-6c2ceb46ac66/11060582904_cfc0fdb0de_o.jpg',
+    title: 'Live Events',
+    category: 'photo',
+    tags: ['Photography'],
+    alt: 'Event Photography',
+    type: 'image'
+  },
+  {
+    src: 'https://images.squarespace-cdn.com/content/v1/63f40364f3010727a4a56f75/8f96fa92-ff87-433f-85f1-6c6d2eb7c2bf/11938.png',
+    title: 'Brand Concepts',
+    category: 'design',
+    tags: ['Design'],
+    alt: 'Digital Design',
+    type: 'image'
+  }
+];
+const generatedMedia = Array.isArray(window.MAD_CREATIVE_MEDIA) ? window.MAD_CREATIVE_MEDIA : [];
+const portfolioMedia = [...generatedMedia, ...fallbackMedia].map(item => ({
+  ...item,
+  category: item.category || 'photo',
+  type: item.type || 'image',
+  tags: Array.isArray(item.tags) && item.tags.length ? item.tags : [categoryMeta[item.category]?.label || 'Work']
+}));
+
+const portfolioFilters = document.getElementById('portfolioFilters');
+const portfolioGrid = document.getElementById('portfolioGrid');
+const lightbox = document.getElementById('lightbox');
+const lightboxFrame = document.getElementById('lightboxFrame');
+const lightboxClose = lightbox.querySelector('.lightbox-close');
+
+function createElement(tag, className, text) {
+  const element = document.createElement(tag);
+  if (className) element.className = className;
+  if (text) element.textContent = text;
+  return element;
+}
+
+function createFilterButton(label, filter, active = false) {
+  const button = createElement('button', `filter-btn${active ? ' active' : ''}`, label);
+  button.type = 'button';
+  button.dataset.filter = filter;
+  return button;
+}
+
+function renderPortfolioFilters() {
+  const categories = new Set(portfolioMedia.map(item => item.category));
+  portfolioFilters.textContent = '';
+  portfolioFilters.appendChild(createFilterButton('All', 'all', true));
+  categoryOrder
+    .filter(category => categories.has(category))
+    .forEach(category => {
+      portfolioFilters.appendChild(createFilterButton(categoryMeta[category].label, category));
+    });
+}
+
+function createPortfolioCard(item) {
+  const card = createElement('article', 'portfolio-item reveal');
+  card.dataset.category = item.category;
+  card.tabIndex = 0;
+  card.setAttribute('role', 'button');
+  card.setAttribute('aria-label', `Open ${item.title}`);
+
+  if (item.type === 'video') {
+    const video = document.createElement('video');
+    video.src = item.src;
+    if (item.poster) video.poster = item.poster;
+    video.muted = true;
+    video.loop = true;
+    video.playsInline = true;
+    video.preload = 'metadata';
+    card.appendChild(video);
+    card.appendChild(createElement('div', 'portfolio-media-type', 'Video'));
+    card.addEventListener('mouseenter', () => video.play().catch(() => {}));
+    card.addEventListener('mouseleave', () => {
+      video.pause();
+      video.currentTime = 0;
+    });
+  } else {
+    const image = document.createElement('img');
+    image.src = item.src;
+    image.alt = item.alt || item.title;
+    image.loading = 'lazy';
+    card.appendChild(image);
+  }
+
+  const overlay = createElement('div', 'portfolio-overlay');
+  overlay.appendChild(createElement('h4', '', item.title));
+  overlay.appendChild(createElement('span', '', item.tags.join(' | ')));
+  card.appendChild(overlay);
+
+  const open = () => openLightbox(item);
+  card.addEventListener('click', open);
+  card.addEventListener('keydown', event => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault();
+      open();
+    }
+  });
+
+  return card;
+}
+
+function renderPortfolio() {
+  renderPortfolioFilters();
+  portfolioGrid.textContent = '';
+  if (!portfolioMedia.length) {
+    portfolioGrid.appendChild(createElement('div', 'portfolio-empty', 'Add media files to the folders in /media, then run npm run build:media.'));
+    return;
+  }
+  portfolioMedia.forEach(item => portfolioGrid.appendChild(createPortfolioCard(item)));
+}
+
+function bindPortfolioFilters() {
+  portfolioFilters.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      portfolioFilters.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const filter = btn.dataset.filter;
+      portfolioGrid.querySelectorAll('.portfolio-item').forEach(item => {
+        if (filter === 'all' || item.dataset.category === filter) {
+          item.classList.remove('is-hidden');
+          setTimeout(() => { item.style.opacity = 1; item.style.transform = 'scale(1)'; }, 50);
+        } else {
+          item.style.opacity = 0;
+          item.style.transform = 'scale(0.95)';
+          setTimeout(() => { item.classList.add('is-hidden'); }, 400);
+        }
+      });
+    });
+  });
+}
+
+function openLightbox(item) {
+  lightboxFrame.textContent = '';
+  const media = item.type === 'video' ? document.createElement('video') : document.createElement('img');
+  media.src = item.src;
+  if (item.type === 'video') {
+    if (item.poster) media.poster = item.poster;
+    media.controls = true;
+    media.autoplay = true;
+    media.playsInline = true;
+  } else {
+    media.alt = item.alt || item.title;
+  }
+  lightboxFrame.appendChild(media);
+  lightbox.classList.add('open');
+  lightbox.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  lightbox.classList.remove('open');
+  lightbox.setAttribute('aria-hidden', 'true');
+  lightboxFrame.textContent = '';
+  document.body.style.overflow = '';
+}
+
+renderPortfolio();
+bindPortfolioFilters();
+
+lightbox.addEventListener('click', closeLightbox);
+lightboxFrame.addEventListener('click', event => event.stopPropagation());
+lightboxClose.addEventListener('click', closeLightbox);
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && lightbox.classList.contains('open')) closeLightbox();
+});
+
+// REVEAL ON SCROLL
+const revealElements = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+revealElements.forEach(el => revealObserver.observe(el));
+
+// SMOOTH SCROLL for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
+</script>
+
+</body>
+</html>

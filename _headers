@@ -1,0 +1,19 @@
+/*
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Content-Security-Policy: upgrade-insecure-requests
+  Referrer-Policy: strict-origin-when-cross-origin
+
+/
+  X-Robots-Tag: index, follow, max-image-preview:large
+  Cache-Control: public, max-age=0, must-revalidate
+
+/index.html
+  X-Robots-Tag: index, follow, max-image-preview:large
+  Cache-Control: public, max-age=0, must-revalidate
+
+/data/*
+  Cache-Control: public, max-age=0, must-revalidate
+
+/media/*
+  X-Robots-Tag: index, follow, max-image-preview:large
+  Cache-Control: public, max-age=31536000, immutable

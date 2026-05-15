@@ -1,0 +1,24 @@
+{
+  "sourceDir": "media",
+  "outputFile": "data/media-manifest.js",
+  "sections": {
+    "photography": {
+      "category": "photo",
+      "label": "Photography"
+    },
+    "design": {
+      "category": "design",
+      "label": "Design"
+    },
+    "digital-art": {
+      "category": "digital",
+      "label": "Digital Art"
+    },
+    "film": {
+      "category": "film",
+      "label": "Film"
+    }
+  },
+  "imageExtensions": [".jpg", ".jpeg", ".png", ".webp", ".gif", ".avif"],
+  "videoExtensions": [".mp4", ".webm", ".mov", ".m4v"]
+}
