@@ -2,7 +2,7 @@
 
 Static production site for MAD Creative.
 
-The portfolio currently uses fallback image URLs from the existing live/Squarespace site because no local media has been added yet. As soon as the media manifest finds files in `media/...`, the local folder-driven gallery replaces those fallback images.
+The portfolio is folder-driven. Images from the existing live/Squarespace site have been imported into `media/...`, and the generated manifest powers the local gallery. The old remote URLs remain in `index.html` only as a safety fallback if the manifest is empty.
 
 ## Add Work
 

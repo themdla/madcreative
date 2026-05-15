@@ -17,11 +17,12 @@ function toPosix(filePath) {
 
 function labelFromSegment(segment) {
   return segment
-    .replace(/^\d+[-_\s]*/, '')
+    .replace(/^\d+[-_\s]+/, '')
     .replace(/[-_]+/g, ' ')
     .replace(/\s+/g, ' ')
     .trim()
-    .replace(/\b\w/g, char => char.toUpperCase());
+    .replace(/\b\w/g, char => char.toUpperCase())
+    .replace(/\b3d\b/gi, '3D');
 }
 
 function titleFromFile(filePath) {
