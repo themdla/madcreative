@@ -2,6 +2,8 @@
 
 Static production site for MAD Creative.
 
+The portfolio currently uses fallback image URLs from the existing live/Squarespace site because no local media has been added yet. As soon as the media manifest finds files in `media/...`, the local folder-driven gallery replaces those fallback images.
+
 ## Add Work
 
 Drop images or videos into the matching folder:

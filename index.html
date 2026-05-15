@@ -464,6 +464,14 @@ section { padding: 7rem 3rem; }
   justify-content: center;
   position: relative;
 }
+.reel-embed {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  z-index: 2;
+}
 .play-button {
   width: 90px; height: 90px;
   background: transparent;
@@ -906,10 +914,12 @@ footer p { color: var(--text-muted); font-size: 0.8rem; font-weight: 300; letter
     <div class="divider"></div>
   </div>
   <div class="reel-container reveal">
-    <div class="reel-bg-text">SHOWREEL</div>
-    <button class="play-button" onclick="window.open('https://vimeo.com/showcase/11933626', '_blank')" aria-label="Play showreel">
-      <svg viewBox="0 0 24 24"><polygon points="5,3 19,12 5,21"/></svg>
-    </button>
+    <iframe
+      class="reel-embed"
+      src="https://vimeo.com/showcase/11933626/embed?title=0&amp;byline=0&amp;portrait=0"
+      title="MAD Creative showreel"
+      allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+      allowfullscreen></iframe>
   </div>
 </section>
 
@@ -1117,7 +1127,8 @@ const fallbackMedia = [
   }
 ];
 const generatedMedia = Array.isArray(window.MAD_CREATIVE_MEDIA) ? window.MAD_CREATIVE_MEDIA : [];
-const portfolioMedia = [...generatedMedia, ...fallbackMedia].map(item => ({
+const sourceMedia = generatedMedia.length ? generatedMedia : fallbackMedia;
+const portfolioMedia = sourceMedia.map(item => ({
   ...item,
   category: item.category || 'photo',
   type: item.type || 'image',
